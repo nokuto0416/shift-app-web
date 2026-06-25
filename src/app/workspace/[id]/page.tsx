@@ -7,7 +7,7 @@ import { format, startOfMonth, endOfMonth, eachDayOfInterval, isToday, addMonths
 import { ja } from "date-fns/locale";
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, AlertCircle, X, Settings, CheckSquare, MousePointerClick, RefreshCw, Users } from "lucide-react";
 import Link from "next/link";
-import { Workspace, WorkspaceMember, Shift, Holiday } from "@/types";
+import { Workspace, WorkspaceMember, Shift, Holiday, ShiftPattern } from "@/types";
 
 export default function WorkspacePage() {
   const { id } = useParams();
@@ -806,5 +806,6 @@ export default function WorkspacePage() {
       )}
 
     </main>
+    </>
   );
 }
