@@ -122,7 +122,7 @@ export default function WorkspaceSettingsPage() {
     }
   };
 
-  const handleRoleChange = async (memberId: string, newRole: string) => {
+  const handleRoleChange = async (memberId: string, newRole: 'owner' | 'manager' | 'staff') => {
     if (!confirm(`権限を「${newRole === 'manager' ? '管理者' : '一般'}」に変更してもよろしいですか？`)) return;
     
     try {
@@ -139,8 +139,8 @@ export default function WorkspaceSettingsPage() {
     }
   };
 
-  const handleRemoveMember = async (memberId: string, memberName: string) => {
-    if (!confirm(`本当に「${memberName}」さんを退職（削除）させますか？この操作は取り消せません。`)) return;
+  const handleRemoveMember = async (memberId: string, memberName: string | undefined) => {
+    if (!confirm(`本当に「${memberName || '不明'}」さんを退職（削除）させますか？この操作は取り消せません。`)) return;
 
     try {
       const { error } = await supabase
@@ -176,7 +176,7 @@ export default function WorkspaceSettingsPage() {
     setShiftPatterns([...shiftPatterns, { name: "新しいシフト", startTime: openTime, endTime: closeTime }]);
   };
 
-  const updateShiftPattern = (index: number, field: string, value: string) => {
+  const updateShiftPattern = (index: number, field: keyof ShiftPattern, value: string) => {
     const newPatterns = [...shiftPatterns];
     newPatterns[index][field] = value;
     setShiftPatterns(newPatterns);
@@ -374,9 +374,9 @@ export default function WorkspaceSettingsPage() {
                 <select 
                   className={`input-field py-1 px-2 text-sm w-auto font-bold ${member.role === 'manager' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-white'}`}
                   value={member.role}
-                  onChange={(e) => handleRoleChange(member.id, e.target.value)}
+                  onChange={(e) => handleRoleChange(member.id, e.target.value as 'owner' | 'manager' | 'staff')}
                 >
-                  <option value="employee">一般（従業員）</option>
+                  <option value="staff">一般（従業員）</option>
                   <option value="manager">管理者（副店長）</option>
                 </select>
 
