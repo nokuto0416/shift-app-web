@@ -12,6 +12,7 @@ export interface Workspace {
   open_time?: string;
   close_time?: string;
   shift_patterns?: ShiftPattern[];
+  submission_deadline_day?: number;
 }
 
 export interface Profile {
